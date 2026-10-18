@@ -425,6 +425,33 @@
     .quicksand-font {
       font-family: 'Quicksand', sans-serif;
     }
+
+    /* Keep the typewriter/lyrics typography consistent with the reference clip. */
+    #mainHeadline,
+    #subCaption,
+    #vinylLyricBox,
+    #clickContinueHint {
+      font-family: 'Courier Prime', monospace !important;
+    }
+    #vinylLyricBox {
+      letter-spacing: 0.065em;
+      text-shadow: 0 0 8px rgba(244, 114, 182, 0.6), 0 0 18px rgba(244, 114, 182, 0.28);
+    }
+
+    /* Version B: trace the white character contours as if they are being drawn by hand. */
+    #decorStep2 .character-line-art path,
+    #decorStep2 .character-line-art line {
+      vector-effect: non-scaling-stroke;
+    }
+    #clickContinueHint {
+      max-width: calc(100vw - 28px);
+      padding: 8px 18px;
+      border: 1px solid rgba(103, 232, 249, 0.25);
+      border-radius: 999px;
+      background: rgba(3, 10, 20, 0.65);
+      box-shadow: 0 0 18px rgba(34, 211, 238, 0.18);
+      text-align: center;
+    }
     @keyframes holoMorph {
       0%, 100% {
         border-radius: 22px 26px 22px 26px;
@@ -448,6 +475,185 @@
       transform: translateY(-2px) scale(1.01);
       box-shadow: 0 0 20px rgba(244, 114, 182, 0.4);
     }
+
+
+    /* Answer pop-up card: soft glass + animated entrance */
+    .answer-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 110;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      background: rgba(2, 5, 15, 0.62);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      transition: opacity .3s ease, backdrop-filter .3s ease, visibility 0s linear .32s;
+    }
+    .answer-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: opacity .3s ease, backdrop-filter .3s ease, visibility 0s linear 0s;
+    }
+    .answer-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+    }
+    .answer-modal-card {
+      position: relative;
+      z-index: 1;
+      width: min(92vw, 540px);
+      max-height: min(82vh, 700px);
+      overflow: auto;
+      border-radius: 26px;
+      padding: clamp(20px, 4vw, 32px);
+      color: #f8fbff;
+      text-align: center;
+      border: 1px solid rgba(165, 243, 252, .58);
+      background: linear-gradient(145deg, rgba(13, 25, 46, .97), rgba(45, 15, 49, .97) 58%, rgba(68, 17, 52, .97));
+      box-shadow: 0 24px 90px rgba(0,0,0,.58), 0 0 38px rgba(0,240,255,.16), inset 0 0 24px rgba(255,255,255,.04);
+      opacity: 0;
+      transform: translateY(24px) scale(.9) rotateX(5deg);
+      transition: opacity .38s ease, transform .48s cubic-bezier(.2, 1.35, .35, 1);
+      transform-origin: center;
+    }
+    .answer-modal.is-open .answer-modal-card {
+      opacity: 1;
+      transform: translateY(0) scale(1) rotateX(0);
+    }
+    .answer-modal-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(103,232,249,.35);
+      background: rgba(34,211,238,.1);
+      color: #a5f3fc;
+      border-radius: 999px;
+      padding: 7px 13px;
+      font-size: 11px;
+      letter-spacing: .12em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .answer-modal-orb {
+      display: grid;
+      place-items: center;
+      width: 66px;
+      height: 66px;
+      margin: 18px auto 12px;
+      border-radius: 22px;
+      font-size: 31px;
+      background: linear-gradient(135deg, rgba(34,211,238,.24), rgba(244,114,182,.28));
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow: 0 0 30px rgba(244,114,182,.24), inset 0 0 16px rgba(255,255,255,.12);
+      animation: answerOrbFloat 3s ease-in-out infinite;
+    }
+    .answer-modal-choice {
+      color: #fbcfe8;
+      font-weight: 700;
+      font-size: clamp(13px, 2.2vw, 16px);
+      line-height: 1.6;
+      margin: 12px 0 15px;
+      overflow-wrap: anywhere;
+    }
+    .answer-modal-reply {
+      border-top: 1px solid rgba(255,255,255,.12);
+      padding-top: 17px;
+      color: #f8fafc;
+      font-size: clamp(14px, 2.4vw, 17px);
+      line-height: 1.75;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+    }
+    .answer-modal-close {
+      margin-top: 24px;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      background: linear-gradient(90deg, #db2777, #9333ea 55%, #0891b2);
+      color: white;
+      padding: 11px 25px;
+      min-width: 148px;
+      font: inherit;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: .06em;
+      box-shadow: 0 8px 26px rgba(219,39,119,.28);
+      cursor: pointer;
+      transition: transform .22s ease, filter .22s ease, box-shadow .22s ease;
+    }
+    .answer-modal-close:hover { transform: translateY(-2px) scale(1.025); filter: brightness(1.12); box-shadow: 0 12px 32px rgba(219,39,119,.4); }
+    @keyframes answerOrbFloat { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-5px) rotate(3deg); } }
+
+    /* Final 10A8 heart scene inspired by the original 3D particle-heart finale */
+    .heart-finale-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 95;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 46%, #3b0a25 0%, #160616 48%, #030207 100%);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .9s ease, visibility .9s ease;
+      color: white;
+      font-family: 'Courier Prime', 'JetBrains Mono', monospace;
+    }
+    .heart-finale-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
+    #heartFinaleCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .heart-finale-shade {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(3,2,9,.52), transparent 27%, rgba(4,2,12,.08) 55%, rgba(3,2,9,.74) 100%);
+    }
+    .heart-finale-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding: clamp(22px, 5vh, 54px) 16px clamp(18px, 3vh, 30px);
+      text-align: center;
+      pointer-events: none;
+    }
+    .heart-finale-heading { width: min(100%, 1100px); animation: finaleTextIn .9s cubic-bezier(.2,1,.3,1) both; }
+    .heart-finale-eyebrow { margin: 0 0 11px; font-size: clamp(9px, 1.5vw, 14px); letter-spacing: .22em; line-height: 1.7; color: #fce7f3; text-shadow: 0 0 18px rgba(255,130,180,.55); }
+    .heart-finale-title { margin: 0; font-size: clamp(20px, 4.2vw, 54px); font-weight: 700; letter-spacing: .045em; line-height: 1.22; color: #fff5fb; text-shadow: 0 0 10px rgba(255,170,210,.65), 0 0 30px rgba(255,70,150,.32); }
+    .heart-finale-number { margin-top: 6px; font-size: clamp(32px, 5.8vw, 68px); font-weight: 700; letter-spacing: .22em; padding-left: .22em; color: #ffd166; text-shadow: 0 0 16px rgba(255,209,102,.78), 0 0 36px rgba(255,150,70,.4); }
+    .heart-finale-card { width: min(94vw, 800px); padding: clamp(17px, 3vh, 27px) clamp(16px, 4vw, 38px); border-radius: 26px; background: rgba(13, 5, 17, .72); border: 1px solid rgba(255,180,210,.28); box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 35px rgba(255,80,150,.12); backdrop-filter: blur(13px); pointer-events: auto; animation: finaleCardIn .8s .3s cubic-bezier(.2,1,.3,1) both; }
+    .heart-finale-quote { margin: 0 auto 20px; max-width: 720px; font-family: 'Courier Prime', monospace; font-size: clamp(12px, 2vw, 17px); line-height: 1.75; color: #fff1f7; }
+    .heart-finale-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
+    .heart-finale-btn { border-radius: 999px; padding: 10px 16px; border: 1px solid rgba(255,220,238,.35); color: #fff; background: rgba(255,255,255,.09); font-family: inherit; font-size: 11px; font-weight: 700; letter-spacing: .06em; cursor: pointer; transition: transform .22s ease, background .22s ease, box-shadow .22s ease; pointer-events: auto; }
+    .heart-finale-btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.17); box-shadow: 0 0 20px rgba(255,120,190,.25); }
+    .heart-finale-btn.primary { background: linear-gradient(90deg, #c2185b, #8b2f91); border-color: rgba(255,225,240,.55); }
+    .heart-finale-hint { margin: 13px 0 0; font-size: 10px; color: rgba(255,225,240,.62); letter-spacing: .07em; }
+    @keyframes finaleTextIn { from { opacity: 0; transform: translateY(-18px); filter: blur(5px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+    @keyframes finaleCardIn { from { opacity: 0; transform: translateY(20px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @media (max-height: 700px) {
+      .heart-finale-content { padding-top: 14px; padding-bottom: 12px; }
+      .heart-finale-eyebrow { margin-bottom: 4px; }
+      .heart-finale-number { font-size: clamp(25px, 4.5vh, 42px); }
+      .heart-finale-middle { padding-top: 8px; }
+      .heart-finale-card { padding-top: 12px; padding-bottom: 12px; }
+      .heart-finale-quote { margin-bottom: 12px; line-height: 1.5; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .answer-modal, .answer-modal-card, .answer-modal-orb, .heart-finale-heading, .heart-finale-card { animation: none !important; transition-duration: .01ms !important; }
+    }
+
   </style>
 </head>
 <body class="relative w-full h-full overflow-hidden select-none">
@@ -467,7 +673,7 @@
   <!-- Top-Right Class 10A8 Badge & Audio Control -->
   <div id="topBar" class="fixed top-3 right-4 z-50 flex items-center gap-2 opacity-0 transition-opacity duration-700">
     <div class="px-3 py-1 rounded-full bg-white/5 border border-pink-400/30 text-pink-200 text-xs sm:text-sm tracking-wider backdrop-blur-md shadow-[0_0_15px_rgba(244,114,182,0.25)]">
-      🌸 20/10 • A.Bảo &amp; 10A8
+      🌸 20/10 • Các bạn nam 10A8
     </div>
     <button id="muteBtn" type="button" aria-label="Bật hoặc tắt nhạc" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/20 border border-cyan-300/30 flex items-center justify-center text-cyan-200 transition-all backdrop-blur-md shadow-[0_0_12px_rgba(0,255,255,0.25)]">
       <span id="muteIcon">🔊</span>
@@ -621,7 +827,7 @@
           <path d="M0,0 C-22,-24 -36,-10 -24,8 C-34,20 -16,32 0,14 C16,32 34,20 24,8 C36,-10 22,-24 0,0 Z" />
         </g>
       </g>
-      <g stroke="rgba(255, 240, 245, 0.85)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g class="character-line-art" stroke="rgba(255, 240, 245, 0.85)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <path d="M 1340,180 C 1315,280 1280,380 1290,480" />
         <path d="M 1390,180 C 1360,295 1350,410 1370,510" />
         <path d="M 1555,180 C 1545,245 1565,310 1600,350" />
@@ -1012,7 +1218,7 @@
           <div class="flex items-center justify-between gap-2 border-b border-white/10 pb-2.5 mb-3">
             <div class="flex items-center gap-2">
               <span id="quizBadge" class="px-2.5 py-0.5 rounded-md bg-pink-500/30 border border-pink-300/40 text-pink-100 text-xs font-bold">
-                Câu hỏi 1 / 7
+                Câu hỏi 1 / 6
               </span>
               <span class="text-xs sm:text-sm text-cyan-200/80 font-medium">
                 🌸 Khuấy động không khí 20/10 lớp 10A8
@@ -1066,16 +1272,53 @@
           </div>
         </div>
 
-        <!-- Compact 20/10 Dedication Footer from A.Bảo 10A8 -->
+        <!-- Compact 20/10 Dedication Footer from the boys of 10A8 -->
         <div class="mt-2 text-xs sm:text-sm text-pink-200/90 flex flex-wrap items-center justify-center gap-1.5">
           <span>🌸</span>
-          <span>Lời chúc 20/10 từ <b>A.Bảo &amp; tập thể nam 10A8</b> gửi tặng các bạn nữ 10A8 luôn xinh đẹp, rạng rỡ &amp; ngập tràn niềm vui!</span>
+          <span>Lời chúc 20/10 từ <b>tập thể các bạn nam 10A8</b> gửi tặng các bạn nữ 10A8 luôn xinh đẹp, rạng rỡ &amp; ngập tràn niềm vui!</span>
           <span>💕</span>
         </div>
       </div>
 
     </div>
   </main>
+
+
+
+  <!-- Animated per-answer feedback card -->
+  <div id="answerModal" class="answer-modal" aria-hidden="true">
+    <div id="answerModalBackdrop" class="answer-modal-backdrop" aria-hidden="true"></div>
+    <section id="answerModalCard" class="answer-modal-card" role="dialog" aria-modal="true" aria-labelledby="answerModalTitle">
+      <div class="answer-modal-kicker"><span>✦</span><span>TRỢ LÝ TINY • 10A8</span><span>✦</span></div>
+      <div class="answer-modal-orb" aria-hidden="true">💌</div>
+      <h2 id="answerModalTitle" class="text-xl sm:text-2xl font-bold glow-pink-text leading-snug">Tiny phản hồi nè!</h2>
+      <p id="answerModalChoice" class="answer-modal-choice"></p>
+      <p id="answerModalReply" class="answer-modal-reply"></p>
+      <button id="closeAnswerModalBtn" class="answer-modal-close" type="button">ĐÓNG THẺ ✕</button>
+    </section>
+  </div>
+
+  <!-- Grand finale: 3D-style particle heart + heart fireworks for class 10A8 -->
+  <section id="heartFinaleOverlay" class="heart-finale-overlay" aria-hidden="true">
+    <canvas id="heartFinaleCanvas" aria-hidden="true"></canvas>
+    <div class="heart-finale-shade"></div>
+    <div class="heart-finale-content">
+      <header class="heart-finale-heading">
+        <p class="heart-finale-eyebrow">C H Ú C &nbsp; M Ừ N G &nbsp; N G À Y &nbsp; P H Ụ &nbsp; N Ữ &nbsp; V I Ệ T &nbsp; N A M</p>
+        <h2 class="heart-finale-title">CÁC BẠN NỮ 10A8 LÀ ĐIỀU TUYỆT VỜI NHẤT</h2>
+        <div class="heart-finale-number">20 / 10</div>
+      </header>
+      <div class="heart-finale-card">
+        <p class="heart-finale-quote">“Chúc các bạn nữ 10A8 luôn được yêu thương, tự tin và hạnh phúc. Mong mỗi ngày đến lớp đều có thật nhiều tiếng cười, những kỷ niệm đáng nhớ và những điều tốt đẹp nhất dành cho các bạn.”</p>
+        <div class="heart-finale-actions">
+          <button id="heartReplayQuizBtn" class="heart-finale-btn" type="button">↻ XEM LẠI CÂU HỎI</button>
+          <button id="heartReplayStartBtn" class="heart-finale-btn primary" type="button">♡ TRẢI NGHIỆM LẠI TỪ ĐẦU</button>
+        </div>
+        <p class="heart-finale-hint">Chạm vào nền để tạo thêm pháo hoa trái tim 💖</p>
+      </div>
+    </div>
+  </section>
+
 
   <!-- Bottom Toast for Impatient Clicks during Intro ("Đợi xíu...", "đợi chút nữa thui", etc.) -->
   <div id="waitToast" class="wait-toast">Đợi xíu...</div>
@@ -1095,28 +1338,27 @@
       let isMuted = false;
       let audioCtx = null;
 
-      // Full timestamped lyrics of the 58s audio track (vocals start at 8.87s right after the intro)
-      const SONG_START_TIME = 8.87;
+      // Part 1 is the 0-9.50s instrumental intro. Part 2 starts exactly where vocals begin.
+      // Keep lyric timing tied to the audio element's currentTime (never to independent timers).
+      const SONG_START_TIME = 9.50;
+      const FIRST_PART_END_TIME = SONG_START_TIME;
       const SONG_LYRICS = [
-        { start: 0.0,  end: 8.87,  lines: ['♪ ♫ ♪', 'Giai điệu 20/10...'] },
-        { start: 8.87, end: 11.75, lines: ['chỉ để nói cho em nghe', 'vậy thôi'] },
-        { start: 11.75, end: 14.65, lines: ['vì đã lỡ yêu em rồi'] },
-        { start: 14.65, end: 17.55, lines: ['chẳng dám hứa', 'xa xôi'] },
-        { start: 17.55, end: 20.50, lines: ['chuyện tương lai', 'thì mờ phai'] },
-        { start: 20.50, end: 23.40, lines: ['tình trạng hiện tại', 'chẳng có ai'] },
-        { start: 23.40, end: 26.35, lines: ['hạnh phúc có bên nhau', 'được lâu'] },
-        { start: 26.35, end: 29.25, lines: ['làm nhau khổ đau', 'là tình yêu?'] },
-        { start: 29.25, end: 32.15, lines: ['tình yêu không như', 'những lời hứa'] },
-        { start: 32.15, end: 35.10, lines: ['tình yêu chất chứa', 'bao xót xa'] },
-        { start: 35.10, end: 38.00, lines: ['nhìn em hạnh phúc bên', 'ai chẳng phải mình'] },
-        { start: 38.00, end: 40.50, lines: ['vì mình có', 'làm được gì đâu'] },
-        { start: 40.50, end: 43.30, lines: ['nhường ai khác', 'bên em là'] },
-        { start: 43.30, end: 46.20, lines: ['nhường đi hết tất cả'] },
-        { start: 46.20, end: 49.10, lines: ['yêu em chẳng', 'khiến em được vui'] },
-        { start: 49.10, end: 52.00, lines: ['thế nên anh phải xa'] },
-        { start: 52.00, end: 54.85, lines: ['càng yêu chỉ', 'thêm thất vọng'] },
-        { start: 54.85, end: 56.50, lines: ['càng tan', 'nát cõi lòng'] },
-        { start: 56.50, end: 59.00, lines: ['không được như mong'] }
+        { start: 0.00,  end: 9.50,  lines: ['♪ ♫ ♪', 'Giai điệu 20/10...'] },
+        { start: 9.50,  end: 12.80, lines: ['người ta nói', 'chẳng ai hiểu'] },
+        { start: 12.80, end: 15.85, lines: ['về hai tiếng', 'thương yêu'] },
+        { start: 15.85, end: 19.40, lines: ['chẳng phải cứ', 'bên nhau'] },
+        { start: 19.40, end: 22.45, lines: ['làm nhau khổ đau', 'là tình yêu?'] },
+        { start: 22.45, end: 25.60, lines: ['nhiều khi rất yêu', 'nhau mà'] },
+        { start: 25.60, end: 29.00, lines: ['phải đứng ở', 'rất xa'] },
+        { start: 29.00, end: 33.65, lines: ['nhìn em hạnh phúc bên', 'ai chẳng phải mình'] },
+        { start: 33.65, end: 36.25, lines: ['vì mình có', 'làm được đâu'] },
+        { start: 36.25, end: 38.80, lines: ['nhường ai khác', 'bên em là'] },
+        { start: 38.80, end: 42.60, lines: ['nhường đi hết tất cả'] },
+        { start: 42.60, end: 45.80, lines: ['yêu em chẳng', 'khiến em được vui'] },
+        { start: 45.80, end: 49.00, lines: ['thế nên anh phải xa'] },
+        { start: 49.00, end: 52.10, lines: ['càng yêu chỉ', 'thêm thất vọng'] },
+        { start: 52.10, end: 55.80, lines: ['càng tan', 'nát cõi lòng'] },
+        { start: 55.80, end: 59.00, lines: ['không được như mong'] }
       ];
 
       let lastLyricIndex = -1;
@@ -1124,13 +1366,22 @@
       function updateSyncedVinylLyrics() {
         if (!bgmAudio || !vinylLyricBox) return;
         const t = bgmAudio.currentTime || 0;
-        // Loop seamlessly back to song vocal start (8.87s) when track finishes so intro SFX does not replay
-        if (t >= 57.85 && currentPhase !== 'INTRO_WAIT') {
+
+        // End Part 1 exactly at the vocal start, pause, and wait for the viewer's click.
+        // This prevents the second section from playing underneath the first scene.
+        if (currentPhase === 'INTRO_WAIT' && t >= FIRST_PART_END_TIME) {
+          finishFirstMusicPart();
+          return;
+        }
+
+        // Loop only the vocal section; do not replay the instrumental intro.
+        if (t >= 57.85 && currentPhase !== 'INTRO_WAIT' && currentPhase !== 'WAIT_NEXT_CHAPTER') {
           bgmAudio.currentTime = SONG_START_TIME;
           return;
         }
-        let idx = SONG_LYRICS.findIndex(item => t >= item.start && t < item.end);
-        if (idx === -1) idx = 1;
+
+        const idxFound = SONG_LYRICS.findIndex(item => t >= item.start && t < item.end);
+        const idx = idxFound === -1 ? (t < SONG_START_TIME ? 0 : 1) : idxFound;
 
         if (idx !== lastLyricIndex) {
           lastLyricIndex = idx;
@@ -1144,7 +1395,7 @@
 
       if (bgmAudio) {
         bgmAudio.addEventListener('timeupdate', updateSyncedVinylLyrics);
-        setInterval(updateSyncedVinylLyrics, 80);
+        setInterval(updateSyncedVinylLyrics, 40);
       }
 
       function ensureAudioCtx() {
@@ -1191,7 +1442,7 @@
         isMuted = !isMuted;
         if (bgmAudio) {
           bgmAudio.muted = isMuted;
-          if (!isMuted && bgmAudio.paused && currentPhase !== 'OPENING') {
+          if (!isMuted && bgmAudio.paused && currentPhase !== 'OPENING' && currentPhase !== 'WAIT_NEXT_CHAPTER') {
             bgmAudio.play().catch(() => {});
           }
         }
@@ -1355,6 +1606,27 @@
       const clickContinueHint = document.getElementById('clickContinueHint');
 
       const decorIds = ['decorIntro2010', 'decorStep1', 'decorStep2', 'decorStep3', 'decorStep4', 'decorStep5', 'decorStep7', 'decorStep8'];
+      function animateWhiteCharacterLines() {
+        const strokes = document.querySelectorAll('#decorStep2 .character-line-art path, #decorStep2 .character-line-art line');
+        if (!strokes.length) return;
+        strokes.forEach((stroke, index) => {
+          let length = 600;
+          try { length = Math.max(1, stroke.getTotalLength()); } catch (err) {}
+          stroke.style.transition = 'none';
+          stroke.style.strokeDasharray = String(length);
+          stroke.style.strokeDashoffset = String(length);
+          stroke.style.opacity = '0.16';
+          void stroke.getBoundingClientRect();
+          requestAnimationFrame(() => {
+            const delay = Math.min(index * 42, 780);
+            const duration = Math.min(2100, Math.max(800, length * 1.05));
+            stroke.style.transition = `stroke-dashoffset ${duration}ms cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, opacity 420ms ease ${delay}ms`;
+            stroke.style.strokeDashoffset = '0';
+            stroke.style.opacity = '1';
+          });
+        });
+      }
+
       function showDecor(activeId) {
         decorIds.forEach(id => {
           const el = document.getElementById(id);
@@ -1367,6 +1639,7 @@
             el.classList.add('opacity-0');
           }
         });
+        if (activeId === 'decorStep2') animateWhiteCharacterLines();
       }
 
       // SVG Markup templates for Tiny's morphing eye expressions
@@ -1653,86 +1926,121 @@
       }
 
       // -------------------------------------------------------------------
-      // 8. Starting the Full Intro Sequence (Matching Video 2: A.Bảo 10A8 + 20/10 Meadow)
+      // 8. Starting the Full Intro Sequence (Matching Video 2: các bạn nam 10A8 + 20/10 Meadow)
       // -------------------------------------------------------------------
       function startIntroSequence() {
+        // Clear any pending timers in case Replay was used.
+        introTimers.forEach(timer => clearTimeout(timer));
+        introTimers = [];
         currentPhase = 'INTRO_WAIT';
         stopCloverStreamLTR();
+        if (bgmAudio) {
+          bgmAudio.currentTime = 0;
+          bgmAudio.muted = isMuted;
+        }
         startBackgroundMusic();
         playChime(523.25, 0.25, 'sine', 0.1);
 
         openingScreen.classList.add('opacity-0', 'pointer-events-none');
         topBar.classList.remove('opacity-0');
+        clickContinueHint.classList.add('hidden');
+        clickContinueHint.textContent = '';
+        showDecor(null);
+        bgStage.className = 'bg-stage bg-black-void';
+        particleTheme = 'none';
 
-        // Part 1A (0.3s): Eyes wake up + "tớ là Tiny"
-        setTimeout(() => {
+        // Part 1A (0.3s): Tiny wakes up.
+        introTimers.push(setTimeout(() => {
           openingScreen.classList.add('hidden');
           interactiveStage.classList.remove('hidden');
           interactiveStage.classList.add('flex');
-
           setEyesConfig({ left: 'square', right: 'square', blush: false, scale: 1.0, shiftX: 0 });
           typeText(subCaption, [{ text: 'tớ là Tiny' }], 50);
-        }, 300);
+        }, 300));
 
-        // Part 1B (1.5s): Top headline "Hôm nay tớ nhận lệnh từ A.Bảo 10A8 là để..."
+        // Part 1B (2.2s): Opening headline, using the monospaced reference font.
         introTimers.push(setTimeout(() => {
+          if (currentPhase !== 'INTRO_WAIT') return;
           subCaption.classList.add('opacity-30');
           mainHeadline.className = 'relative z-10 text-lg sm:text-3xl md:text-4xl font-bold glow-cyan-text leading-snug';
           typeText(mainHeadline, [
             { text: 'Hôm nay tớ nhận lệnh từ ' },
-            { text: 'A.Bảo 10A8', className: 'glow-blue-highlight' },
+            { text: 'các bạn nam 10A8', className: 'glow-blue-highlight' },
             { text: ' là để...' }
           ], 30);
-        }, 1500));
+        }, 2200));
 
-        // Playful eye squint at 3.6s
+        // Keep the playful blink during the instrumental intro.
         introTimers.push(setTimeout(() => {
           if (currentPhase === 'INTRO_WAIT') {
             setSingleEye('left', 'squint');
             setSingleEye('right', 'squint');
           }
-        }, 3600));
+        }, 6800));
 
-        // Part 1C (4.3s): "ui cậu đẹp quá" below Tiny's blushing eyes
+        // Fallback in case a browser does not dispatch audio timeupdate promptly.
         introTimers.push(setTimeout(() => {
-          if (currentPhase !== 'INTRO_WAIT') return;
-          mainHeadline.innerHTML = '';
-          subCaption.classList.remove('opacity-30');
-          setEyesConfig({ left: 'square', right: 'square', blush: true, scale: 1.0, shiftX: 0 });
-          typeText(subCaption, [{ text: 'ui cậu đẹp quá' }], 35);
-        }, 4300));
+          if (currentPhase === 'INTRO_WAIT') finishFirstMusicPart();
+        }, Math.round(FIRST_PART_END_TIME * 1000) + 1300));
+      }
 
-        // Part 1D (6.1s): "à thì cũng sắp / 20/10 rồi" + Meadow Grass + Golden Ao Dai Girls
-        introTimers.push(setTimeout(() => {
-          if (currentPhase !== 'INTRO_WAIT') return;
-          subCaption.innerHTML = '';
-          subCaption.classList.add('hidden');
-          bgStage.className = 'bg-stage bg-meadow-2010';
-          particleTheme = 'warm';
-          showDecor('decorIntro2010');
-          setEyesConfig({ left: 'square', right: 'square', blush: true, scale: 0.96, shiftX: -90 });
-          mainHeadline.className = 'relative z-10 text-2xl sm:text-4xl md:text-5xl font-bold glow-pink-text leading-snug sm:-translate-x-24';
-          typeText(mainHeadline, [
-            { text: 'à thì cũng sắp' },
-            { br: true },
-            { text: '20/10 rồi' }
-          ], 35);
-        }, 6100));
+      // Stop after the instrumental intro. The viewer controls when Part 2 starts.
+      function finishFirstMusicPart() {
+        if (currentPhase !== 'INTRO_WAIT') return;
+        currentPhase = 'WAIT_NEXT_CHAPTER';
+        if (bgmAudio) {
+          bgmAudio.pause();
+          try { bgmAudio.currentTime = FIRST_PART_END_TIME; } catch (err) {}
+        }
+        introTimers.forEach(timer => clearTimeout(timer));
+        introTimers = [];
+        waitToast.classList.remove('show');
+        setSingleEye('left', 'square');
+        setSingleEye('right', 'square');
+        clickContinueHint.className = 'click-hint glow-cyan-text';
+        clickContinueHint.textContent = '✦ PHẦN 1 KẾT THÚC · BẤM ĐỂ TIẾP TỤC ✦';
+        lastLyricIndex = -1;
+      }
 
-        // End of Intro Wait (8.87s - exact moment vocals start in bgmAudio!) -> Transition to Step 1 ("nên là tớ muốn")
-        introTimers.push(setTimeout(() => {
-          waitToast.classList.remove('show');
-          subCaption.innerHTML = '';
-          subCaption.classList.add('hidden');
-          currentPhase = 'CLICK_STEPS';
-          currentStepIndex = 0;
-          lastStepClickTime = Date.now();
-          if (bgmAudio && Math.abs(bgmAudio.currentTime - SONG_START_TIME) > 0.6) {
-            bgmAudio.currentTime = SONG_START_TIME;
-          }
-          playChime(659.25, 0.25, 'sine', 0.09);
-          renderClickStep(0);
-        }, 8870));
+      // Part 2 starts on the exact vocal timestamp. The meadow scene with the two girls
+      // appears only after the viewer clicks, and the lyric clock follows the real audio.
+      function enterMeadowChapter() {
+        if (currentPhase !== 'WAIT_NEXT_CHAPTER') return;
+        currentPhase = 'MEADOW_CHAPTER';
+        clickContinueHint.classList.add('hidden');
+        clickContinueHint.textContent = '';
+        waitToast.classList.remove('show');
+        subCaption.innerHTML = '';
+        subCaption.classList.add('hidden');
+        bgStage.className = 'bg-stage bg-meadow-2010';
+        particleTheme = 'warm';
+        showDecor('decorIntro2010');
+        setEyesConfig({ left: 'square', right: 'square', blush: true, scale: 0.96, shiftX: -90 });
+        mainHeadline.className = 'relative z-10 text-2xl sm:text-4xl md:text-5xl font-bold glow-pink-text leading-snug sm:-translate-x-24';
+        typeText(mainHeadline, [
+          { text: 'à thì cũng sắp' },
+          { br: true },
+          { text: '20/10 rồi' }
+        ], 35);
+        if (bgmAudio) {
+          bgmAudio.currentTime = SONG_START_TIME;
+          bgmAudio.muted = isMuted;
+          bgmAudio.play().catch(() => {});
+        }
+        lastLyricIndex = -1;
+        updateSyncedVinylLyrics();
+      }
+
+      // A second click leaves the two-girl scene and begins the wish-by-wish sequence.
+      function beginClickSteps() {
+        if (currentPhase !== 'MEADOW_CHAPTER') return;
+        currentPhase = 'CLICK_STEPS';
+        currentStepIndex = 0;
+        lastStepClickTime = Date.now();
+        subCaption.innerHTML = '';
+        subCaption.classList.add('hidden');
+        playChime(659.25, 0.25, 'sine', 0.09);
+        renderClickStep(0);
       }
 
       // -------------------------------------------------------------------
@@ -1837,7 +2145,7 @@
       // -------------------------------------------------------------------
       const CLASS_QUESTIONS = [
         {
-          q: 'Hôm nay 20/10, theo phân tích AI của Tiny thì nhan sắc của các bạn nữ 10A8 đang ở mức nào?',
+          q: 'Hôm nay 20/10, theo phân tích AI của Tiny, nhan sắc của các bạn nữ 10A8 đang ở level nào?',
           eyes: { left: 'star', right: 'star', blush: true, scale: 0.62, shiftX: 0, heart: true },
           options: [
             {
@@ -1879,28 +2187,7 @@
           ]
         },
         {
-          q: '⚡ THỬ THÁCH TRỰC TIẾP: Bạn nữ 10A8 nào đang nhìn thấy dòng này hãy quay sang bạn bên cạnh và nở nụ cười tươi nhất trong 3 giây!',
-          eyes: { left: 'caret-up', right: 'caret-up', blush: true, scale: 0.62, shiftX: 0, heart: true },
-          options: [
-            {
-              label: '📸 Đã cười tươi rói luôn rồi nè!',
-              reply: '🤖 Áaa nụ cười tỏa nắng quá! Tiny xin tặng ngay một cơn mưa tim hồng cho nụ cười triệu đô của 10A8! 💖🌸',
-              eyesAfter: { left: 'heart', right: 'heart', blush: true, scale: 0.65, shiftX: 0, heart: true }
-            },
-            {
-              label: '😆 Cười lăn cười bò cả bàn luôn rồi!',
-              reply: '🤖 Đúng tinh thần 10A8 luôn! Chúc các bạn nữ ngày nào đi học cũng tràn ngập tiếng cười giòn tan như thế này nhé! 🥰✨',
-              eyesAfter: { left: 'star', right: 'star', blush: true, scale: 0.65, shiftX: 0, heart: true }
-            },
-            {
-              label: '👉 Xin nhường quyền cười tỏa nắng cho bạn nữ bàn bên!',
-              reply: '🤖 Bạn nữ bàn bên ơi, cả lớp đang nhìn kìa, cười một cái thật xinh để nhận bão tim từ Tiny nha! 💕🌷',
-              eyesAfter: { left: 'chevron-right', right: 'square', blush: true, scale: 0.65, shiftX: 0, heart: true }
-            }
-          ]
-        },
-        {
-          q: 'Bình chọn nhanh: "Đặc sản" mỗi giờ ra chơi của hội chị em lớp 10A8 là gì?',
+          q: 'Bình chọn nhanh: “Đặc sản” của hội chị em 10A8 mỗi giờ ra chơi là gì?',
           eyes: { left: 'square', right: 'square', blush: true, scale: 0.62, shiftX: 0, heart: true },
           options: [
             {
@@ -1909,7 +2196,7 @@
               eyesAfter: { left: 'caret-up', right: 'caret-up', blush: true, scale: 0.65, shiftX: 0, heart: true }
             },
             {
-              label: 'B. Nắm tay nhau đi căn-tin / săn đồ ăn vặt nhanh như chớp 零食',
+              label: 'B. Nắm tay nhau đi căn-tin / săn đồ ăn vặt nhanh như chớp 🍪',
               reply: '🤖 Tình chị em gắn kết bền chặt nhất là lúc chia nhau từng miếng bánh tráng, từng ly nước ngọt đúng không nè! 🍟💖',
               eyesAfter: { left: 'heart', right: 'heart', blush: true, scale: 0.65, shiftX: 0, heart: true }
             },
@@ -1921,7 +2208,7 @@
           ]
         },
         {
-          q: 'Ai trong dàn mỹ nhân 10A8 được mệnh danh là "Cây hài / Vitamin vui vẻ" chỉ cần xuất hiện là cả lớp cười tươi?',
+          q: 'Ai trong hội bạn nữ 10A8 được gọi là “cây hài / vitamin vui vẻ”, chỉ cần xuất hiện là cả lớp bật cười?',
           eyes: { left: 'arc-down', right: 'arc-down-wide', blush: true, scale: 0.62, shiftX: 0, heart: true },
           options: [
             {
@@ -1937,7 +2224,7 @@
           ]
         },
         {
-          q: 'Hôm nay 20/10, các bạn nữ 10A8 muốn nhận món quà tinh thần nào nhất từ tập thể nam 10A8?',
+          q: 'Hôm nay 20/10, các bạn nữ 10A8 muốn nhận món quà tinh thần nào nhất từ các bạn nam 10A8?',
           eyes: { left: 'chevron-right', right: 'chevron-left', blush: true, scale: 0.62, shiftX: 0, heart: true },
           options: [
             {
@@ -1958,7 +2245,7 @@
           ]
         },
         {
-          q: 'Cuối cùng, Tiny gửi tặng 10A8 một ngôi sao ước nguyện 20/10 🌟 Các bạn nữ muốn điều ước nào thành hiện thực ngay trong học kỳ này?',
+          q: 'Cuối cùng, Tiny gửi tặng 10A8 một ngôi sao ước nguyện 🌟 Điều ước nào các bạn nữ muốn thành hiện thực trong học kỳ này?',
           eyes: { left: 'heart', right: 'heart', blush: true, scale: 0.62, shiftX: 0, heart: true },
           options: [
             {
@@ -2004,6 +2291,43 @@
       const cancelCustomQBtn = document.getElementById('cancelCustomQBtn');
       const applyCustomQBtn = document.getElementById('applyCustomQBtn');
 
+      const answerModal = document.getElementById('answerModal');
+      const answerModalTitle = document.getElementById('answerModalTitle');
+      const answerModalChoice = document.getElementById('answerModalChoice');
+      const answerModalReply = document.getElementById('answerModalReply');
+      const closeAnswerModalBtn = document.getElementById('closeAnswerModalBtn');
+      const answerModalBackdrop = document.getElementById('answerModalBackdrop');
+      let lastAnswerTrigger = null;
+
+      function openAnswerModal(choice, reply, heading = 'Tiny phản hồi nè!') {
+        lastAnswerTrigger = document.activeElement;
+        answerModalTitle.textContent = heading;
+        answerModalChoice.textContent = choice || 'Một lời nhắn dành cho 10A8';
+        answerModalReply.textContent = reply || 'Tiny gửi đến bạn một lời chúc thật nhiều niềm vui! 💖';
+        answerModal.classList.add('is-open');
+        answerModal.setAttribute('aria-hidden', 'false');
+        window.setTimeout(() => closeAnswerModalBtn.focus(), 80);
+      }
+
+      function closeAnswerModal() {
+        if (!answerModal.classList.contains('is-open')) return;
+        answerModal.classList.remove('is-open');
+        answerModal.setAttribute('aria-hidden', 'true');
+        if (lastAnswerTrigger && typeof lastAnswerTrigger.focus === 'function') {
+          window.setTimeout(() => lastAnswerTrigger.focus(), 50);
+        }
+      }
+
+      closeAnswerModalBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeAnswerModal();
+      });
+      answerModalBackdrop.addEventListener('click', closeAnswerModal);
+      answerModal.addEventListener('click', (e) => e.stopPropagation());
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAnswerModal();
+      });
+
       const EMOTION_PRESETS = [
         { left: 'caret-up', right: 'caret-up', blush: true, scale: 0.65, shiftX: 0, heart: true },
         { left: 'heart', right: 'heart', blush: true, scale: 0.65, shiftX: 0, heart: true },
@@ -2019,6 +2343,7 @@
         if (!item) return;
 
         quizBadge.textContent = `Câu hỏi ${idx + 1} / ${CLASS_QUESTIONS.length}`;
+        nextQuizBtn.textContent = idx === CLASS_QUESTIONS.length - 1 ? '💖 Kết thúc & gửi tim' : 'Câu tiếp theo →';
         quizQuestionText.textContent = item.q;
         tinyReactionBox.classList.add('hidden');
         tinyReactionBox.innerHTML = '';
@@ -2031,7 +2356,8 @@
           btn.type = 'button';
           btn.className = 'quiz-option-btn w-full text-left px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-pink-500/25 border border-white/15 hover:border-pink-300/50 text-xs sm:text-sm md:text-base text-white font-semibold flex items-center justify-between gap-2';
           btn.innerHTML = `<span>${opt.label}</span><span class="text-pink-300 text-xs">Chọn ✦</span>`;
-          btn.addEventListener('click', function () {
+          btn.addEventListener('click', function (e) {
+            e.stopPropagation();
             playChime(740, 0.22, 'sine', 0.09);
             // Highlight selected option
             Array.from(quizOptionsContainer.children).forEach(c => {
@@ -2039,8 +2365,9 @@
             });
             btn.className = 'quiz-option-btn w-full text-left px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500/40 to-cyan-500/30 border border-pink-300 text-xs sm:text-sm md:text-base text-white font-bold flex items-center justify-between gap-2 shadow-[0_0_18px_rgba(244,114,182,0.4)]';
 
-            tinyReactionBox.innerHTML = opt.reply;
-            tinyReactionBox.classList.remove('hidden');
+            tinyReactionBox.classList.add('hidden');
+            tinyReactionBox.innerHTML = '';
+            openAnswerModal(opt.label, opt.reply);
             if (opt.eyesAfter) {
               setEyesConfig(opt.eyesAfter);
             }
@@ -2056,9 +2383,14 @@
         renderQuizQuestion(currentQuizIdx);
       });
 
-      nextQuizBtn.addEventListener('click', function () {
+      nextQuizBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
         playChime(659.25, 0.18, 'sine', 0.08);
-        currentQuizIdx = (currentQuizIdx + 1) % CLASS_QUESTIONS.length;
+        if (currentQuizIdx >= CLASS_QUESTIONS.length - 1) {
+          enterHeartFinale();
+          return;
+        }
+        currentQuizIdx += 1;
         renderQuizQuestion(currentQuizIdx);
       });
 
@@ -2077,8 +2409,9 @@
       randomChallengeBtn.addEventListener('click', function () {
         playChime(784, 0.25, 'sine', 0.09);
         const challenge = RANDOM_CHALLENGES[Math.floor(Math.random() * RANDOM_CHALLENGES.length)];
-        tinyReactionBox.innerHTML = `<div class="font-bold text-amber-200">${challenge}</div>`;
-        tinyReactionBox.classList.remove('hidden');
+        tinyReactionBox.classList.add('hidden');
+        tinyReactionBox.innerHTML = '';
+        openAnswerModal('🎲 Thử thách nhanh dành cho 10A8', challenge, 'Tiny gửi thử thách nè!');
         setEyesConfig({ left: 'star', right: 'star', blush: true, scale: 0.68, shiftX: 0, heart: true });
         celebrateBurst(8);
       });
@@ -2142,6 +2475,257 @@
         celebrateBurst(10);
       }
 
+
+      // -------------------------------------------------------------------
+      // 10B. Grand 10A8 Finale: converging 3D particle heart + heart fireworks
+      // Adapted from the original "Trái Tim Ngàn Hoa" finale.
+      // -------------------------------------------------------------------
+      const stageContainer = document.getElementById('stageContainer');
+      const heartFinaleOverlay = document.getElementById('heartFinaleOverlay');
+      const heartFinaleCanvas = document.getElementById('heartFinaleCanvas');
+      const heartFinaleCtx = heartFinaleCanvas.getContext('2d');
+      const heartReplayQuizBtn = document.getElementById('heartReplayQuizBtn');
+      const heartReplayStartBtn = document.getElementById('heartReplayStartBtn');
+      let heartFinaleW = window.innerWidth;
+      let heartFinaleH = window.innerHeight;
+      let heartFinaleDpr = Math.min(window.devicePixelRatio || 1, 2);
+      let heartFinaleParticles = [];
+      let heartFinaleAmbientParticles = [];
+      let heartFinaleFireworks = [];
+      let heartFinaleAngle = 0;
+      let heartFinaleRunning = false;
+      let heartFinaleFrame = 0;
+      let nextAutoHeartFirework = 0;
+
+      function resizeHeartFinaleCanvas() {
+        heartFinaleW = window.innerWidth;
+        heartFinaleH = window.innerHeight;
+        heartFinaleDpr = Math.min(window.devicePixelRatio || 1, 2);
+        heartFinaleCanvas.width = Math.floor(heartFinaleW * heartFinaleDpr);
+        heartFinaleCanvas.height = Math.floor(heartFinaleH * heartFinaleDpr);
+        heartFinaleCtx.setTransform(heartFinaleDpr, 0, 0, heartFinaleDpr, 0, 0);
+        if (heartFinaleParticles.length) resetHeartFinaleParticles();
+      }
+      window.addEventListener('resize', resizeHeartFinaleCanvas);
+      resizeHeartFinaleCanvas();
+
+      function getFinaleHeartTarget(isCore) {
+        const t = Math.random() * Math.PI * 2;
+        const u = (Math.random() - 0.5) * 2;
+        const radius = isCore ? (0.12 + Math.random() * 0.26) : (0.52 + Math.random() * 0.50);
+        const hx = 16 * Math.pow(Math.sin(t), 3);
+        const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+        const hz = u * 6.8 * Math.sin(t);
+        const scale = Math.min(heartFinaleW, heartFinaleH) * 0.0118 * radius;
+        return { tx: hx * scale, ty: hy * scale - 12, tz: hz * scale };
+      }
+
+      function resetAmbientFinaleParticles() {
+        heartFinaleAmbientParticles.length = 0;
+        const colors = ['#ff4d8d', '#ff85b3', '#ffd166', '#fff7fb', '#ff2a75', '#ffc2dc', '#f9a8d4'];
+        // Small floating hearts and sparkles stay around the whole scene, not only inside the 3D heart.
+        const total = heartFinaleW < 600 ? 48 : 76;
+        for (let i = 0; i < total; i++) {
+          heartFinaleAmbientParticles.push({
+            x: Math.random() * heartFinaleW,
+            y: Math.random() * heartFinaleH,
+            size: 4 + Math.random() * (heartFinaleW < 600 ? 5 : 8),
+            color: colors[Math.floor(Math.random() * colors.length)],
+            alpha: 0.28 + Math.random() * 0.46,
+            drift: (Math.random() - 0.5) * 0.55,
+            rise: 0.15 + Math.random() * 0.48,
+            phase: Math.random() * Math.PI * 2,
+            wobble: 0.3 + Math.random() * 0.9,
+            heart: Math.random() < 0.78
+          });
+        }
+      }
+
+      function drawAmbientFinaleParticles(ctx, w, h) {
+        for (const p of heartFinaleAmbientParticles) {
+          p.phase += 0.012 + p.rise * 0.01;
+          p.y -= p.rise;
+          p.x += p.drift + Math.sin(p.phase) * p.wobble * 0.18;
+          if (p.y < -22) {
+            p.y = h + 18;
+            p.x = Math.random() * w;
+          }
+          if (p.x < -18) p.x = w + 14;
+          if (p.x > w + 18) p.x = -14;
+          const twinkle = 0.68 + (Math.sin(p.phase * 1.7) + 1) * 0.16;
+          ctx.save();
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = p.heart ? 9 : 11;
+          if (p.heart) {
+            drawFinaleHeartGlyph(ctx, p.x, p.y, p.size, p.color, p.alpha * twinkle);
+          } else {
+            ctx.globalAlpha = p.alpha * twinkle;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y - p.size);
+            ctx.lineTo(p.x + p.size * 0.42, p.y);
+            ctx.lineTo(p.x, p.y + p.size);
+            ctx.lineTo(p.x - p.size * 0.42, p.y);
+            ctx.closePath();
+            ctx.fill();
+          }
+          ctx.restore();
+        }
+      }
+
+      function resetHeartFinaleParticles() {
+        heartFinaleParticles.length = 0;
+        resetAmbientFinaleParticles();
+        const palette = ['#ff4d8d', '#ff85b3', '#ffd166', '#ffffff', '#ff2a75', '#ffb3c6', '#ffd6e7'];
+        const total = heartFinaleW < 600 ? 560 : 820;
+        for (let i = 0; i < total; i++) {
+          const core = i < Math.floor(total * 0.23);
+          const target = getFinaleHeartTarget(core);
+          heartFinaleParticles.push({
+            x: (Math.random() - 0.5) * heartFinaleW * 1.9,
+            y: (Math.random() - 0.5) * heartFinaleH * 1.7,
+            z: (Math.random() - 0.5) * 950,
+            tx: target.tx, ty: target.ty, tz: target.tz,
+            color: core ? (Math.random() < 0.66 ? '#fff9e6' : '#ffd166') : palette[Math.floor(Math.random() * palette.length)],
+            size: core ? 2.4 + Math.random() * 2.8 : 3 + Math.random() * 4.2,
+            ease: 0.024 + Math.random() * 0.034
+          });
+        }
+      }
+
+      function drawFinaleHeartGlyph(ctx, x, y, size, color, alpha = 1) {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        const s = size * 0.55;
+        ctx.moveTo(x, y + s * 0.4);
+        ctx.bezierCurveTo(x, y - s * 0.5, x - s * 1.2, y - s * 0.5, x - s * 1.2, y + s * 0.2);
+        ctx.bezierCurveTo(x - s * 1.2, y + s * 0.8, x, y + s * 1.3, x, y + s * 1.6);
+        ctx.bezierCurveTo(x, y + s * 1.3, x + s * 1.2, y + s * 0.8, x + s * 1.2, y + s * 0.2);
+        ctx.bezierCurveTo(x + s * 1.2, y - s * 0.5, x, y - s * 0.5, x, y + s * 0.4);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function spawnHeartFinaleFirework(x, y) {
+        const colors = ['#ff4d8d', '#ffd166', '#ff85b3', '#ffffff', '#ff2a75', '#f9a8d4'];
+        const count = heartFinaleW < 600 ? 38 : 58;
+        for (let i = 0; i < count; i++) {
+          const angle = Math.PI * 2 * i / count + (Math.random() - 0.5) * 0.15;
+          const speed = 1.2 + Math.random() * 4.4;
+          heartFinaleFireworks.push({
+            x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            alpha: 1, decay: 0.012 + Math.random() * 0.014, size: 2.2 + Math.random() * 2.8
+          });
+        }
+      }
+
+      function animateHeartFinale() {
+        if (!heartFinaleRunning) return;
+        const ctx = heartFinaleCtx;
+        const w = heartFinaleW;
+        const h = heartFinaleH;
+        ctx.clearRect(0, 0, w, h);
+        heartFinaleAngle += 0.012;
+        const glowRadius = Math.min(w, h) * 0.34;
+        const glow = ctx.createRadialGradient(w * 0.5, h * 0.48, 0, w * 0.5, h * 0.48, glowRadius);
+        glow.addColorStop(0, 'rgba(255,215,230,0.28)');
+        glow.addColorStop(0.48, 'rgba(255,95,155,0.13)');
+        glow.addColorStop(1, 'rgba(180,30,90,0)');
+        ctx.fillStyle = glow;
+        ctx.beginPath(); ctx.arc(w * 0.5, h * 0.48, glowRadius, 0, Math.PI * 2); ctx.fill();
+
+        const cosine = Math.cos(heartFinaleAngle);
+        const sine = Math.sin(heartFinaleAngle);
+        const pulse = 1 + Math.sin(heartFinaleAngle * 2.2) * 0.045;
+        // Ambient floating hearts and sparkles surround the main 3D heart.
+        drawAmbientFinaleParticles(ctx, w, h);
+        const fov = 720;
+        for (const p of heartFinaleParticles) {
+          p.x += (p.tx * pulse - p.x) * p.ease;
+          p.y += (p.ty * pulse - p.y) * p.ease;
+          p.z += (p.tz * pulse - p.z) * p.ease;
+          const rx = p.x * cosine - p.z * sine;
+          const rz = p.z * cosine + p.x * sine + 520;
+          if (rz <= 50) continue;
+          const scale = (fov * 0.78) / rz;
+          drawFinaleHeartGlyph(ctx, w * 0.5 + rx * scale, h * 0.48 + p.y * scale, p.size * scale, p.color, 0.92);
+        }
+
+        const now = performance.now();
+        if (now > nextAutoHeartFirework) {
+          spawnHeartFinaleFirework(w * (0.18 + Math.random() * 0.64), h * (0.12 + Math.random() * 0.48));
+          nextAutoHeartFirework = now + 1350 + Math.random() * 900;
+        }
+        for (let i = heartFinaleFireworks.length - 1; i >= 0; i--) {
+          const f = heartFinaleFireworks[i];
+          f.x += f.vx; f.y += f.vy; f.vy += 0.035; f.vx *= 0.985; f.vy *= 0.985; f.alpha -= f.decay;
+          if (f.alpha <= 0) { heartFinaleFireworks.splice(i, 1); continue; }
+          drawFinaleHeartGlyph(ctx, f.x, f.y, f.size * 1.45, f.color, f.alpha);
+        }
+        heartFinaleFrame = requestAnimationFrame(animateHeartFinale);
+      }
+
+      function startHeartFinaleAnimation() {
+        cancelAnimationFrame(heartFinaleFrame);
+        resetHeartFinaleParticles();
+        heartFinaleFireworks.length = 0;
+        heartFinaleAngle = 0;
+        nextAutoHeartFirework = 0;
+        heartFinaleRunning = true;
+        heartFinaleFrame = requestAnimationFrame(animateHeartFinale);
+        window.setTimeout(() => spawnHeartFinaleFirework(heartFinaleW * 0.28, heartFinaleH * 0.32), 500);
+        window.setTimeout(() => spawnHeartFinaleFirework(heartFinaleW * 0.72, heartFinaleH * 0.3), 950);
+      }
+
+      function stopHeartFinaleAnimation() {
+        heartFinaleRunning = false;
+        cancelAnimationFrame(heartFinaleFrame);
+        heartFinaleCtx.clearRect(0, 0, heartFinaleW, heartFinaleH);
+      }
+
+      function enterHeartFinale() {
+        closeAnswerModal();
+        currentPhase = 'HEART_FINALE';
+        finalMessageCard.classList.remove('flex');
+        finalMessageCard.classList.add('hidden');
+        stageContainer.style.visibility = 'hidden';
+        heartFinaleOverlay.classList.add('active');
+        heartFinaleOverlay.setAttribute('aria-hidden', 'false');
+        startHeartFinaleAnimation();
+      }
+
+      heartFinaleOverlay.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('button')) return;
+        spawnHeartFinaleFirework(e.clientX || heartFinaleW * 0.5, e.clientY || heartFinaleH * 0.5);
+        playChime(660 + Math.random() * 240, 0.12, 'sine', 0.05);
+      });
+
+      heartReplayQuizBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        heartFinaleOverlay.classList.remove('active');
+        heartFinaleOverlay.setAttribute('aria-hidden', 'true');
+        stopHeartFinaleAnimation();
+        stageContainer.style.visibility = 'visible';
+        currentPhase = 'FINALE';
+        currentQuizIdx = 0;
+        renderQuizQuestion(0);
+        finalMessageCard.classList.remove('hidden');
+        finalMessageCard.classList.add('flex');
+      });
+
+      heartReplayStartBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        heartFinaleOverlay.classList.remove('active');
+        heartFinaleOverlay.setAttribute('aria-hidden', 'true');
+        stopHeartFinaleAnimation();
+        stageContainer.style.visibility = 'visible';
+        replayBtn.click();
+      });
+
+
       function celebrateBurst(count = 8) {
         for (let i = 0; i < count; i++) {
           setTimeout(() => {
@@ -2185,6 +2769,9 @@
         airplaneSection.classList.remove('flex');
         airplaneSection.classList.add('hidden');
         showDecor(null);
+        clickContinueHint.classList.add('hidden');
+        clickContinueHint.textContent = '';
+        if (bgmAudio) bgmAudio.pause();
 
         bgStage.className = 'bg-stage bg-black-void';
         particleTheme = 'none';
@@ -2218,6 +2805,16 @@
 
         if (currentPhase === 'INTRO_WAIT') {
           showImpatientToast();
+          return;
+        }
+
+        if (currentPhase === 'WAIT_NEXT_CHAPTER') {
+          enterMeadowChapter();
+          return;
+        }
+
+        if (currentPhase === 'MEADOW_CHAPTER') {
+          beginClickSteps();
           return;
         }
 
