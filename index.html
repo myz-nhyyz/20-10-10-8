@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Sự thức giấc của Tiny - Chúc Mừng 20/10 Lớp 10A8 💖</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background-color: #040408;
+      color: #ffffff;
+      font-family: 'Quicksand', sans-serif;
+      cursor: pointer;
+    }
+
+    /* Nền lưới caro chìm giống video */
+    .cyber-grid-bg {
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .font-typewriter {
+      font-family: 'Courier Prime', monospace;
+      letter-spacing: 0.08em;
+    }
+
+    /* Hiệu ứng chữ phát sáng */
+    .glow-white-cyan {
+      color: #f8fafc;
+      text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.95),
+        0 0 18px rgba(103, 232, 249, 0.8),
+        0 0 36px rgba(6, 182, 212, 0.5);
+    }
+
+    .glow-pink {
+      color: #ffd6e8;
+      text-shadow:
+        0 0 8px rgba(255, 194, 222, 0.95),
+        0 0 18px rgba(244, 114, 182, 0.85),
+        0 0 32px rgba(236, 72, 153, 0.55);
+    }
+
+    .glow-warm-gold {
+      color: #fff7ed;
+      text-shadow:
+        0 0 8px rgba(255, 247, 237, 0.95),
+        0 0 18px rgba(253, 186, 116, 0.85),
+        0 0 32px rgba(251, 146, 60, 0.55);
+    }
+
+    .glow-green {
+      color: #86efac;
+      text-shadow:
+        0 0 10px rgba(134, 239, 172, 0.95),
+        0 0 22px rgba(34, 197, 94, 0.85),
+        0 0 38px rgba(22, 163, 74, 0.65);
+    }
+
+    /* ================= ĐÔI MẮT ROBOT TINY NEON CYAN ================= */
+    .eyes-wrapper {
+      position: fixed;
+      left: 50%;
+      top: 47%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 54px;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    .eye-unit {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .cyber-eye {
+      width: 118px;
+      height: 114px;
+      background: radial-gradient(circle at 50% 45%, #80fbff 0%, #00f0ff 60%, #00d0ff 100%);
+      border-radius: 26px;
+      box-shadow:
+        0 0 24px #00f0ff,
+        0 0 50px rgba(0, 240, 255, 0.78),
+        0 0 90px rgba(0, 240, 255, 0.42),
+        inset 0 0 18px rgba(255, 255, 255, 0.78);
+      transition: all 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+    }
+
+    /* 4 vệt má hồng //// dưới mắt */
+    .eye-blush {
+      margin-top: 12px;
+      display: flex;
+      gap: 7px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .show-blush .eye-blush {
+      opacity: 0.92;
+    }
+    .eye-blush span {
+      display: block;
+      width: 2.2px;
+      height: 15px;
+      background: #ff6ea7;
+      border-radius: 2px;
+      transform: rotate(22deg);
+      box-shadow: 0 0 8px #ff6ea7;
+    }
+
+    /* Khi người dùng click liên tục lúc đang đợi Intro (00:17 trong video) */
+    .eyes-wait-squint .cyber-eye {
+      height: 28px !important;
+      border-radius: 999px !important;
+    }
+
+    /* Hơi nheo mắt khen đẹp */
+    .eyes-squint .cyber-eye {
+      height: 82px;
+      border-radius: 22px;
+    }
+
+    /* Cảnh Áo dài */
+    .eyes-aodai {
+      left: 52%;
+      top: 49%;
+      gap: 76px;
+    }
+
+    /* Mắt cong cười ︶ ︶ (Cảnh Viên pha lê 00:19) */
+    .eyes-happy-arc {
+      top: 42%;
+    }
+    .eyes-happy-arc .cyber-eye {
+      width: 98px;
+      height: 22px;
+      border-radius: 0 0 60px 60px;
+      background: #00f0ff;
+      transform: translateY(10px) rotate(-4deg);
+    }
+    .eyes-happy-arc .eye-unit:last-child .cyber-eye {
+      transform: translateY(10px) rotate(4deg);
+    }
+
+    /* Cảnh Sức khỏe (00:22): Mắt trái nháy cong nhỏ, mắt phải vuông to */
+    .eyes-health {
+      left: 43%;
+      top: 50%;
+      gap: 64px;
+    }
+    .eyes-health .eye-unit:first-child .cyber-eye {
+      width: 56px;
+      height: 22px;
+      background: transparent;
+      border-bottom: 9px solid #5efcff;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-radius: 0 0 50px 50px;
+      box-shadow: 0 8px 18px rgba(0, 240, 255, 0.75);
+      transform: translateY(6px);
+    }
+    .eyes-health .eye-unit:last-child .cyber-eye {
+      width: 132px;
+      height: 132px;
+      border-radius: 28px;
+    }
+
+    /* Cảnh Nụ cười & Đĩa nhạc (00:28) */
+    .eyes-smile-scene {
+      left: 34%;
+      top: 49%;
+      gap: 48px;
+      transform: translate(-50%, -50%) scale(0.86);
+    }
+
+    /* Mắt > < khi chuẩn bị tặng cỏ 4 lá (00:30 - 00:31) */
+    .eyes-gt-lt .eye-unit:first-child .cyber-eye {
+      width: 56px;
+      height: 56px;
+      background: transparent !important;
+      box-shadow: none !important;
+      border-top: 9px solid #38f9ff;
+      border-right: 9px solid #38f9ff;
+      border-radius: 0 8px 0 0;
+      transform: rotate(45deg);
+      filter: drop-shadow(0 0 12px #00f0ff) drop-shadow(0 0 22px #00f0ff);
+    }
+    .eyes-gt-lt .eye-unit:last-child .cyber-eye {
+      width: 56px;
+      height: 56px;
+      background: transparent !important;
+      box-shadow: none !important;
+      border-bottom: 9px solid #38f9ff;
+      border-left: 9px solid #38f9ff;
+      border-radius: 0 0 0 8px;
+      transform: rotate(45deg);
+      filter: drop-shadow(0 0 12px #00f0ff) drop-shadow(0 0 22px #00f0ff);
+    }
+
+    /* Mắt > ■ khi nói "nè cầm lấy đi" (00:32 - 00:33) */
+    .eyes-gt-square .eye-unit:first-child .cyber-eye {
+      width: 56px;
+      height: 56px;
+      background: transparent !important;
+      box-shadow: none !important;
+      border-top: 9px solid #38f9ff;
+      border-right: 9px solid #38f9ff;
+      border-radius: 0 8px 0 0;
+      transform: rotate(45deg);
+      filter: drop-shadow(0 0 12px #00f0ff) drop-shadow(0 0 22px #00f0ff);
+    }
+
+    /* Cảnh Máy bay chia sẻ (00:40) */
+    .eyes-share-scene {
+      left: 50%;
+      top: 41%;
+      gap: 42px;
+      transform: translate(-50%, -50%) scale(0.74);
+    }
+    /* Mắt nghiêng nhìn xuống bình nhiên liệu (00:42) */
+    .eyes-look-fuel {
+      left: 48%;
+      top: 41%;
+      gap: 42px;
+      transform: translate(-50%, -50%) scale(0.74) rotate(-8deg);
+    }
+
+    /* Mắt cười ^ ^ khi cảm ơn (00:45 - 00:53) */
+    .eyes-chevron-happy {
+      left: 50%;
+      top: 41%;
+      gap: 58px;
+      transform: translate(-50%, -50%) scale(0.84);
+    }
+    .eyes-chevron-happy .cyber-eye {
+      width: 58px;
+      height: 58px;
+      background: transparent !important;
+      box-shadow: none !important;
+      border-top: 9px solid #38f9ff;
+      border-left: 9px solid #38f9ff;
+      border-radius: 8px 0 0 0;
+      transform: rotate(45deg) translate(10px, 10px);
+      filter: drop-shadow(0 0 12px #00f0ff) drop-shadow(0 0 24px #00f0ff);
+    }
+
+    /* Chớp mắt thành vệt ngang (00:24 & 00:27) */
+    .eye-blink .cyber-eye {
+      height: 7px !important;
+      border-radius: 999px !important;
+    }
+
+    /* ================= TỐI ƯU TRÊN ĐIỆN THOẠI ================= */
+    @media (max-width: 640px) {
+      .cyber-eye {
+        width: 78px;
+        height: 76px;
+        border-radius: 18px;
+      }
+      .eyes-wrapper {
+        gap: 28px;
+        top: 43%;
+      }
+      .eye-blush {
+        margin-top: 8px;
+        gap: 5px;
+      }
+      .eye-blush span {
+        height: 11px;
+      }
+      .eyes-aodai {
+        left: 36%;
+        top: 42%;
+        gap: 26px;
+        transform: translate(-50%, -50%) scale(0.82);
+      }
+      .eyes-health {
+        left: 38%;
+        top: 36%;
+        gap: 28px;
+        transform: translate(-50%, -50%) scale(0.78);
+      }
+      .eyes-smile-scene {
+        left: 34%;
+        top: 27%;
+        gap: 24px;
+        transform: translate(-50%, -50%) scale(0.74);
+      }
+      .eyes-share-scene, .eyes-look-fuel {
+        top: 36%;
+        gap: 28px;
+        transform: translate(-50%, -50%) scale(0.7);
+      }
+      .eyes-chevron-happy {
+        top: 34%;
+        gap: 38px;
+        transform: translate(-50%, -50%) scale(0.7);
+      }
+    }
+
+    /* ================= VIÊN PHA LÊ XANH + 2 VÒNG QUỸ ĐẠO (00:20) ================= */
+    .diamond-btn-wrap {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .orbit-ring-1 {
+      position: absolute;
+      width: 135px;
+      height: 44px;
+      border: 1.2px solid rgba(186, 230, 253, 0.55);
+      border-radius: 50%;
+      transform: rotate(-28deg);
+      pointer-events: none;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+    }
+    .orbit-ring-2 {
+      position: absolute;
+      width: 155px;
+      height: 52px;
+      border: 1px solid rgba(186, 230, 253, 0.35);
+      border-radius: 50%;
+      transform: rotate(32deg);
+      pointer-events: none;
+    }
+    .diamond-outer {
+      width: 58px;
+      height: 58px;
+      border-radius: 13px;
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.45), rgba(30, 64, 175, 0.78));
+      border: 2px solid #7dd3fc;
+      box-shadow:
+        0 0 25px rgba(56, 189, 248, 0.9),
+        0 0 55px rgba(56, 189, 248, 0.5),
+        inset 0 0 15px rgba(186, 230, 253, 0.65);
+      animation: diamondPulse 2s ease-in-out infinite;
+    }
+    @keyframes diamondPulse {
+      0%, 100% { filter: brightness(1); transform: rotate(45deg) scale(1); }
+      50% { filter: brightness(1.25); transform: rotate(45deg) scale(1.09); }
+    }
+
+    /* ================= ĐĨA THAN VINYL XOAY (00:28) ================= */
+    .vinyl-disc {
+      width: 102px;
+      height: 102px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, #f9a8d4 0 21%, #141218 22% 33%, #27242d 34% 35%, #141218 36% 47%, #27242d 48% 49%, #141218 50% 62%, #27242d 63% 64%, #110f14 65% 100%);
+      border: 2px solid rgba(244, 114, 182, 0.45);
+      box-shadow: 0 0 28px rgba(244, 114, 182, 0.28);
+      animation: spinVinyl 6s linear infinite;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (min-width: 640px) {
+      .vinyl-disc { width: 124px; height: 124px; }
+    }
+    @keyframes spinVinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ================= BÌNH NHIÊN LIỆU & MÁY BAY (00:40 - 00:48) ================= */
+    .fuel-tank {
+      position: relative;
+      width: 148px;
+      height: 132px;
+      border-radius: 22px;
+      border: 2px solid rgba(125, 211, 252, 0.78);
+      background: rgba(15, 23, 42, 0.75);
+      box-shadow:
+        0 0 24px rgba(56, 189, 248, 0.25),
+        inset 0 0 18px rgba(125, 211, 252, 0.18);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .fuel-tank:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 32px rgba(251, 146, 60, 0.45);
+    }
+    .fuel-tank:active {
+      transform: scale(0.97);
+    }
+
+    .fuel-liquid {
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      height: 78%;
+      border-radius: 15px;
+      background: linear-gradient(180deg, #fef9c3 0%, #fdba74 38%, #fb923c 72%, #f472b6 100%);
+      box-shadow: 0 0 20px rgba(251, 146, 60, 0.55);
+      transition: height 0.15s linear;
+    }
+
+    @media (max-width: 640px) {
+      .fuel-tank {
+        width: 118px;
+        height: 106px;
+        border-radius: 18px;
+      }
+    }
+
+    .fuel-flow-dash {
+      stroke-dasharray: 12 14;
+      animation: flowDash 0.42s linear infinite;
+    }
+    @keyframes flowDash {
+      from { stroke-dashoffset: 26; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    .plane-takeoff {
+      animation: planeFlyAway 2.2s cubic-bezier(0.3, 0, 0.6, 1) forwards;
+    }
+    @keyframes planeFlyAway {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      30% { transform: translate(35px, -8px) rotate(-8deg); }
+      100% { transform: translate(480px, -210px) rotate(-18deg) scale(0.85); opacity: 0; }
+    }
+
+    .propeller-fast {
+      animation: propSpin 0.12s linear infinite;
+      transform-origin: 213px 68px;
+    }
+    @keyframes propSpin {
+      from { transform: scaleY(1); }
+      50% { transform: scaleY(0.15); }
+      to { transform: scaleY(1); }
+    }
+  </style>
+</head>
+<body class="relative w-full h-[100dvh] overflow-hidden select-none cyber-grid-bg">
+
+  <!-- CANVAS NỀN CHUNG -->
+  <canvas id="bgCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+  <!-- =====================================================================
+       MÀN HÌNH MỞ ĐẦU (00:06): "này cậu gì ơi" -> Click 1 lần để bắt đầu
+       ===================================================================== -->
+  <div id="startOverlay" class="fixed inset-0 z-50 bg-[#030306] flex flex-col items-center justify-center transition-opacity duration-700 cursor-pointer">
+    <h1 class="font-typewriter text-2xl sm:text-5xl glow-white-cyan tracking-widest animate-pulse">
+      này cậu gì ơi
+    </h1>
+  </div>
+
+  <!-- SÂN KHẤU CHÍNH -->
+  <main id="storyStage" class="relative w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden z-10">
+
+    <!-- Dòng chữ câu chuyện phía trên trung tâm -->
+    <div id="topCaptionWrap" class="fixed top-[10%] sm:top-[13%] inset-x-0 text-center px-4 z-30 pointer-events-none transition-all duration-700">
+      <p id="topCaption" class="font-typewriter text-base sm:text-3xl glow-white-cyan leading-relaxed whitespace-pre-line"></p>
+    </div>
+
+    <!-- Dòng chữ góc trái trên (Cảnh Áo dài: "à thì cũng sắp 20/10 rồi") -->
+    <div id="leftCaptionWrap" class="fixed top-[13%] sm:top-[16%] left-[8%] sm:left-[19%] text-center z-30 pointer-events-none opacity-0 transition-opacity duration-700">
+      <p class="font-typewriter text-lg sm:text-[32px] glow-pink leading-normal">
+        à thì cũng sắp<br/>20/10 rồi
+      </p>
+    </div>
+
+    <!-- ĐÔI MẮT ROBOT TINY NEON CYAN TRUNG TÂM -->
+    <div id="robotEyes" class="eyes-wrapper opacity-0">
+      <div class="eye-unit">
+        <div class="cyber-eye"></div>
+        <div class="eye-blush"><span></span><span></span><span></span><span></span></div>
+      </div>
+      <div class="eye-unit">
+        <div class="cyber-eye"></div>
+        <div class="eye-blush"><span></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+    <!-- Dòng chữ phía dưới mắt ("tớ là Tiny" / "ui cậu đẹp quá") -->
+    <div id="bottomCaptionWrap" class="fixed bottom-[19%] inset-x-0 text-center px-4 z-30 pointer-events-none transition-all duration-700">
+      <p id="bottomCaption" class="font-typewriter text-lg sm:text-3xl glow-white-cyan"></p>
+    </div>
+
+    <!-- NÚT PILL BÁO "Đợi chút nữa thui..." KHI CLICK NHIỀU Ở ĐOẠN ĐẦU (00:11 - 00:18) -->
+    <div id="waitToastPill"
+      class="fixed bottom-[7%] left-1/2 -translate-x-1/2 z-50 px-5 py-1.5 rounded-full bg-[#1a1325]/90 border border-pink-300/35 text-pink-200 font-typewriter text-xs sm:text-sm shadow-[0_0_16px_rgba(244,114,182,0.3)] opacity-0 pointer-events-none transition-all duration-300">
+      đợi chút nữa thui
+    </div>
+
+    <!-- GỢI Ý NHỎ "Chạm để tiếp tục" KHI TỚI ĐOẠN CLICK CHUYỂN TRANG -->
+    <div id="clickNextHint"
+      class="fixed bottom-3.5 left-1/2 -translate-x-1/2 z-40 font-typewriter text-[11px] sm:text-xs text-sky-200/55 tracking-wider opacity-0 pointer-events-none transition-opacity duration-500 animate-pulse">
+      chạm vào màn hình để tiếp tục ✨
+    </div>
+
+    <!-- ===================================================================
+         CẢNH ÁO DÀI: 2 THIẾU NỮ ÁO DÀI NÓN LÁ & HOA SEN
+         =================================================================== -->
+    <div id="aoDaiArt" class="fixed bottom-0 right-[2%] sm:right-[4%] w-[225px] sm:w-[370px] z-20 pointer-events-none opacity-0 transition-opacity duration-1000">
+      <svg viewBox="0 0 380 460" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto" style="filter: drop-shadow(0 0 12px rgba(253, 224, 71, 0.38));">
+        <g stroke="#fef3c7" stroke-width="1.5" fill="#09080d">
+          <path d="M325 220 C340 200, 360 198, 368 205 C360 220, 342 226, 325 220 Z" />
+          <path d="M322 212 C332 188, 348 182, 358 185 C354 204, 338 214, 322 212 Z" />
+          <path d="M316 206 C320 182, 332 172, 342 172 C342 192, 330 205, 316 206 Z" />
+          <path d="M328 225 C346 218, 364 222, 372 230 C358 238, 340 235, 328 225 Z" />
+          <path d="M324 232 C340 232, 355 240, 360 248 C345 250, 332 242, 324 232 Z" />
+        </g>
+        <!-- Cô gái bên phải -->
+        <g>
+          <path d="M235 162 C222 176, 214 210, 212 242 C210 258, 220 264, 228 258 C222 315, 206 385, 198 455 L348 455 C332 385, 314 310, 304 252 C316 250, 325 242, 326 226 C326 204, 314 176, 298 162 Z"
+            fill="#07070c" stroke="#fef3c7" stroke-width="1.6" />
+          <path d="M242 252 C236 315, 224 385, 216 455" stroke="#fef3c7" stroke-width="1.3" opacity="0.85" />
+          <path d="M268 245 C266 315, 262 385, 258 455" stroke="#fef3c7" stroke-width="1.2" opacity="0.75" />
+          <path d="M286 250 C296 315, 310 385, 322 455" stroke="#fef3c7" stroke-width="1.3" opacity="0.85" />
+          <path d="M228 188 C222 214, 220 238, 228 256" stroke="#fef3c7" stroke-width="1.4" />
+          <path d="M248 92 C238 96, 232 110, 234 124 C236 136, 244 144, 252 146 L252 160" fill="#07070c" stroke="#fef3c7" stroke-width="1.6" />
+          <path d="M244 86 C262 68, 294 74, 306 102 C316 126, 314 162, 318 196 C320 215, 312 232, 300 242 C286 250, 268 244, 260 228 C252 212, 254 182, 252 152 C250 124, 240 104, 244 86 Z"
+            fill="#07070c" stroke="#fef3c7" stroke-width="1.6" />
+          <path d="M262 82 C278 96, 282 132, 276 168 C272 194, 276 218, 286 234" stroke="#fef3c7" stroke-width="1.1" opacity="0.75" />
+          <path d="M278 86 C294 106, 296 144, 290 182 C286 206, 292 224, 302 236" stroke="#fef3c7" stroke-width="1.1" opacity="0.75" />
+          <path d="M254 108 C264 128, 266 162, 262 196" stroke="#fef3c7" stroke-width="1.1" opacity="0.7" />
+          <path d="M286 132 C292 126, 298 132, 292 142 C286 138, 284 135, 286 132 Z" fill="#eab308" />
+        </g>
+        <!-- Cô gái bên trái đội nón lá -->
+        <g>
+          <path d="M128 156 C112 170, 102 196, 112 225 C118 242, 125 256, 122 275 C110 335, 92 398, 76 455 L218 455 C208 392, 196 325, 186 265 C182 238, 186 206, 182 175 C178 160, 165 154, 152 154 Z"
+            fill="#07070c" stroke="#fef3c7" stroke-width="1.7" />
+          <path d="M122 268 C142 262, 164 262, 185 268" stroke="#fef3c7" stroke-width="1.3" opacity="0.8" />
+          <path d="M136 266 C126 328, 112 392, 98 455" stroke="#fef3c7" stroke-width="1.4" />
+          <path d="M168 266 C176 328, 186 392, 196 455" stroke="#fef3c7" stroke-width="1.4" />
+          <path d="M152 272 C150 335, 146 395, 142 455" stroke="#fef3c7" stroke-width="1.1" opacity="0.7" />
+          <path d="M118 192 C102 198, 86 192, 84 176 C82 158, 90 132, 98 112 L108 116 C104 136, 98 158, 102 170 C106 176, 114 172, 124 166"
+            fill="#07070c" stroke="#fef3c7" stroke-width="1.6" />
+          <path d="M96 112 C94 102, 100 94, 106 98 C110 102, 108 110, 106 116" stroke="#fef3c7" stroke-width="1.5" />
+          <path d="M148 168 C154 196, 146 224, 118 238 L112 228 C132 216, 138 196, 134 172"
+            fill="#07070c" stroke="#fef3c7" stroke-width="1.6" />
+          <path d="M116 230 C104 234, 96 242, 100 248 C105 252, 114 244, 120 238" stroke="#fef3c7" stroke-width="1.5" />
+          <path d="M164 104 C184 118, 202 146, 208 176 C200 182, 190 178, 182 168" fill="#07070c" stroke="#fef3c7" stroke-width="1.5" />
+          <path d="M170 116 C186 132, 196 154, 200 174" stroke="#fef3c7" stroke-width="1.1" opacity="0.75" />
+          <path d="M122 96 C120 116, 128 134, 142 138 C156 140, 166 126, 166 106" fill="#07070c" stroke="#fef3c7" stroke-width="1.6" />
+          <path d="M126 112 Q142 142 160 116" stroke="#fef3c7" stroke-width="1.2" opacity="0.8" />
+          <path d="M74 98 L146 42 L214 112 C172 126, 112 120, 74 98 Z" fill="#07070c" stroke="#fef3c7" stroke-width="1.8" />
+          <path d="M74 98 C116 82, 174 88, 214 112" stroke="#fef3c7" stroke-width="1.5" />
+          <path d="M146 42 L94 94 M146 42 L116 90 M146 42 L140 90 M146 42 L166 94 M146 42 L190 102" stroke="#fef3c7" stroke-width="0.9" opacity="0.65" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- ===================================================================
+         CẢNH VIÊN PHA LÊ + 2 VÒNG QUỸ ĐẠO (00:19 - 00:21)
+         =================================================================== -->
+    <div id="diamondStage" class="fixed bottom-[16%] sm:bottom-[18%] inset-x-0 z-40 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-500 transform scale-75">
+      <div id="btnDiamond" class="diamond-btn-wrap" role="button" aria-label="Chạm vào viên pha lê">
+        <div class="orbit-ring-1"></div>
+        <div class="orbit-ring-2"></div>
+        <div class="diamond-outer"></div>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div class="w-5 h-5 bg-sky-100 rotate-45 rounded-sm shadow-[0_0_14px_#fff]"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================
+         CẢNH SỨC KHỎE: CÔ GÁI ĐAN TAY TRÊN NGỰC & TIM ĐỎ (00:22 - 00:24)
+         =================================================================== -->
+    <div id="healthArt" class="fixed inset-0 pointer-events-none z-20 opacity-0 transition-opacity duration-700">
+      <div class="absolute right-0 bottom-0 w-[60vw] h-[85vh] bg-[radial-gradient(circle_at_75%_60%,rgba(185,28,28,0.26)_0%,transparent_70%)]"></div>
+
+      <!-- Cụm bên trái -->
+      <div class="absolute left-[4%] sm:left-[7%] bottom-[8%] sm:bottom-[10%] w-[180px] sm:w-[340px]">
+        <svg viewBox="0 0 340 320" fill="none" class="w-full">
+          <path d="M55 45 Q65 36 74 44 Q83 36 93 45" stroke="#93c5fd" stroke-width="1.6" fill="none" opacity="0.8" />
+          <path d="M195 110 Q202 103 209 109 Q216 103 223 110" stroke="#93c5fd" stroke-width="1.4" fill="none" opacity="0.75" />
+          <circle cx="88" cy="205" r="56" stroke="rgba(244,114,182,0.18)" stroke-width="1.2" />
+          <path d="M35 182 Q42 176 48 182 Q54 176 61 182" stroke="rgba(244,114,182,0.65)" stroke-width="1.3" />
+          <path d="M88 192 C88 175, 62 168, 62 188 C62 206, 88 220, 88 230 C88 220, 114 206, 114 188 C114 168, 88 175, 88 192 Z"
+            stroke="#f472b6" stroke-width="2.4" fill="rgba(244,114,182,0.08)" style="filter: drop-shadow(0 0 8px rgba(244,114,182,0.6));" />
+          <g transform="translate(36, 128) scale(0.9)" stroke="#f9a8d4" stroke-width="1.4" fill="rgba(244,114,182,0.22)">
+            <path d="M0 0 C-12 -12, -18 -2, -6 6 C-16 12, -10 20, 0 10 C10 20, 16 12, 6 6 C18 -2, 12 -12, 0 0 Z" />
+          </g>
+          <g transform="translate(132, 238) scale(0.65)" stroke="#f9a8d4" stroke-width="1.4" fill="rgba(244,114,182,0.22)">
+            <path d="M0 0 C-12 -12, -18 -2, -6 6 C-16 12, -10 20, 0 10 C10 20, 16 12, 6 6 C18 -2, 12 -12, 0 0 Z" />
+          </g>
+          <g transform="translate(275, 168) scale(0.75)" stroke="#f9a8d4" stroke-width="1.4" fill="rgba(244,114,182,0.22)">
+            <path d="M0 0 C-12 -12, -18 -2, -6 6 C-16 12, -10 20, 0 10 C10 20, 16 12, 6 6 C18 -2, 12 -12, 0 0 Z" />
+          </g>
+          <path d="M210 278 L218 278 L225 264 L236 288 L244 278 L328 278"
+            stroke="#f472b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 6px #f472b6);" />
+        </svg>
+      </div>
+
+      <!-- Cụm bên phải: Cô gái đan tay trên ngực -->
+      <div class="absolute right-[-4%] sm:right-0 bottom-0 w-[265px] sm:w-[490px]">
+        <svg viewBox="0 0 460 440" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+          <path d="M185 10 C178 48, 158 95, 132 145 C106 195, 86 260, 74 345" stroke="#d6d3d1" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M205 12 C198 62, 188 118, 195 175" stroke="#d6d3d1" stroke-width="2" stroke-linecap="round" />
+          <path d="M218 15 C212 72, 206 128, 218 168" stroke="#d6d3d1" stroke-width="1.6" stroke-linecap="round" />
+          <path d="M295 10 C305 42, 338 72, 368 88" stroke="#d6d3d1" stroke-width="2" stroke-linecap="round" />
+          <path d="M252 15 C256 42, 244 72, 222 92" stroke="#d6d3d1" stroke-width="2" stroke-linecap="round" />
+          <path d="M312 18 C306 48, 316 78, 342 96" stroke="#d6d3d1" stroke-width="2" stroke-linecap="round" />
+          <g transform="translate(222, 88) scale(0.75)" stroke="#f9a8d4" stroke-width="1.5" fill="rgba(244,114,182,0.2)">
+            <path d="M0 0 C-12 -12, -18 -2, -6 6 C-16 12, -10 20, 0 10 C10 20, 16 12, 6 6 C18 -2, 12 -12, 0 0 Z" />
+          </g>
+          <path d="M84 315 C92 268, 122 225, 162 192 L212 232 C192 288, 165 348, 118 395 C88 388, 78 352, 84 315 Z"
+            fill="rgba(12,10,16,0.65)" stroke="#e7e5e4" stroke-width="2.2" />
+          <path d="M162 192 C176 184, 198 202, 212 232" stroke="#e7e5e4" stroke-width="2.2" />
+          <path d="M142 365 L125 435" stroke="#e7e5e4" stroke-width="2.2" />
+          <path d="M276 185 L276 435" stroke="#a8a29e" stroke-width="1.6" />
+          <path d="M174 198 C196 168, 218 142, 242 118 C248 112, 254 116, 250 124 L232 146" stroke="#e7e5e4" stroke-width="2" fill="#141118" />
+          <path d="M236 142 C258 122, 282 108, 302 98 C308 95, 312 102, 305 108 L268 134" stroke="#e7e5e4" stroke-width="2" fill="#141118" />
+          <path d="M262 138 C286 122, 308 112, 324 106 C330 104, 334 112, 326 117 L282 145" stroke="#e7e5e4" stroke-width="2" fill="#141118" />
+          <path d="M274 150 C295 138, 314 132, 328 128 C334 127, 336 134, 328 139 L286 162 C264 176, 236 196, 212 224" stroke="#e7e5e4" stroke-width="2" fill="#141118" />
+          <path d="M448 228 C422 192, 396 154, 372 128 C356 108, 344 92, 332 82 C326 77, 320 83, 326 91 L348 116" stroke="#e7e5e4" stroke-width="2.1" fill="#141118" />
+          <path d="M352 114 C324 96, 294 84, 272 78 C264 76, 260 84, 268 89 L318 114" stroke="#e7e5e4" stroke-width="2.1" fill="#141118" />
+          <path d="M318 114 C290 102, 264 94, 246 92 C238 91, 236 99, 244 103 L304 128" stroke="#e7e5e4" stroke-width="2.1" fill="#141118" />
+          <path d="M304 128 C280 118, 258 114, 244 114 C236 114, 236 122, 244 126 L302 146" stroke="#e7e5e4" stroke-width="2.1" fill="#141118" />
+          <path d="M302 146 C284 140, 268 138, 256 140 C250 141, 250 148, 258 152 L316 176 C348 190, 378 214, 402 246" stroke="#e7e5e4" stroke-width="2.1" fill="#141118" />
+          <path d="M452 242 C424 236, 398 258, 404 286 L455 365" stroke="#e7e5e4" stroke-width="2.2" />
+          <g class="origin-center animate-pulse" style="filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.85));">
+            <path d="M318 202 C318 182, 286 172, 286 196 C286 222, 318 242, 318 256 C318 242, 352 218, 352 192 C352 168, 318 182, 318 202 Z"
+              fill="#dc2626" stroke="#fca5a5" stroke-width="2" />
+            <path d="M296 190 L312 225 M306 188 L324 235 M318 195 L334 232 M328 184 L344 218"
+              stroke="#7f1d1d" stroke-width="1.6" opacity="0.65" stroke-linecap="round" />
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ===================================================================
+         CẢNH NỤ CƯỜI & ĐĨA NHẠC VINYL (00:28 - 00:30)
+         =================================================================== -->
+    <div id="smileMusicStage" class="fixed inset-0 pointer-events-none z-20 opacity-0 transition-opacity duration-700">
+      <!-- Dây hoa văn trái tim & ngôi sao góc trái dưới -->
+      <svg viewBox="0 0 240 240" fill="none" class="fixed left-0 bottom-0 w-[150px] sm:w-[240px] opacity-85">
+        <path d="M10 235 C42 195, 48 152, 95 142 C136 132, 148 92, 164 55" stroke="#fde68a" stroke-width="1.5" />
+        <path d="M72 135 L78 150 L93 156 L78 162 L72 177 L66 162 L51 156 L66 150 Z" stroke="#fde68a" stroke-width="1.5" fill="rgba(253,230,138,0.12)" />
+        <path d="M132 62 L136 72 L146 76 L136 80 L132 90 L128 80 L118 76 L128 72 Z" stroke="#fde68a" stroke-width="1.4" />
+        <path d="M95 198 C95 186, 76 18
